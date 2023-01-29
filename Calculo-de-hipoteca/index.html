@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Cuota de hipoteca</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+	<form action="" name="formulario" method="get">
+		Ingresar el monto total:
+		<input type="number" name="cantidad" id="cantidad" maxlength="30" placeholder="Cantidad:">
+		<br>
+
+		Ingresar cantidad de cuotas:
+		<div class="main">
+			<input type="range" min="3" max="48" value="3" id="slider" onchange="document.getElementById('outvol').value=value" list="tickmarks" step="3">
+			<output id="outvol" name="outvol" for="vol">3</output>
+		</div>
+
+		<datalist id="tickmarks">
+			<option value="27"></option>
+		</datalist>
+
+		<div class="main">
+			<input type="range" min="0" max="100" value="50" id="slider" onchange="document.getElementById('outvol2').value=value" step="1">
+			<output id="outvol2" name="outvol2" for="vol">50</output>
+		</div>
+
+		<datalist id="tickmarks">
+			<option value="27"></option>
+		</datalist>
+
+		<input type="submit" id="id" name="btn" value="Calcular">
+	</form>
+
+	<script>
+		(function(){
+
+			var formulario= document.getElementsByName('formulario')[0],
+			elementos = formulario.elements;
+
+			var validarCantidad= function(){
+				if(formulario.cantidad.value == ''){
+					alert("Completa el campo cantidad");
+					e.preventDefault();
+				}
+			}
+
+			var validar = function(e){
+				validarCantidad(e);
+				calcular();
+			}
+
+			var calcular = function(){
+				var cantidad = parseInt(document.getElementById("cantidad").value)
+				;
+				var cantCuotas = parseInt(document.getElementById("outvol").value);
+				var interes = (parseInt(document.getElementById("outvol2").value)*cantidad)/100;
+				var total = (cantidad+interes)/cantCuotas;
+				alert("Importe de la cuota mensual: "+total);
+			}
+
+			formulario.addEventListener("submit", validar);
+
+
+		}()
+		)
+		
+
+	</script>
+</body>
